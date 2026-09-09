@@ -1,0 +1,113 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Bookings Manager | WanderLuxe Admin{% endblock %}
+
+{% block admin_content %}
+<div class="space-y-6">
+  
+  <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy">Customer Reservations</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">Review incoming bookings, issue vouchers, and manage status.</p>
+    </div>
+
+    <!-- Status summary pills -->
+    <div class="flex items-center gap-2 text-xs">
+      <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-bold text-slate-700">Total: {{ bookings|length }}</span>
+    </div>
+  </div>
+
+  <!-- BOOKINGS TABLE -->
+  <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs text-slate-600">
+        <thead class="bg-slate-50 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-100">
+          <tr>
+            <th class="py-3.5 px-6">Reference</th>
+            <th class="py-3.5 px-6">Tour Package</th>
+            <th class="py-3.5 px-6">Lead Passenger</th>
+            <th class="py-3.5 px-6">Travel Date</th>
+            <th class="py-3.5 px-6">Guests</th>
+            <th class="py-3.5 px-6">Total ($)</th>
+            <th class="py-3.5 px-6">Payment</th>
+            <th class="py-3.5 px-6">Status</th>
+            <th class="py-3.5 px-6 text-right">Update Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% if bookings %}
+          {% for b in bookings %}
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-4 px-6 font-mono font-bold text-brand-navy">
+              <a href="/booking-confirmation/{{ b.booking_ref }}" target="_blank" class="hover:underline text-brand-gold flex items-center gap-1">
+                <span>{{ b.booking_ref }}</span>
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+            </td>
+            <td class="py-4 px-6 font-semibold text-slate-800 max-w-xs truncate">
+              {{ b.tour_title }}
+            </td>
+            <td class="py-4 px-6">
+              <strong class="text-slate-800 block">{{ b.customer_name }}</strong>
+              <span class="text-[11px] text-slate-400 block">{{ b.customer_email }}</span>
+              <span class="text-[11px] text-slate-400 block">{{ b.customer_phone }}</span>
+            </td>
+            <td class="py-4 px-6 text-slate-700 font-medium">
+              {{ b.travel_date }}
+            </td>
+            <td class="py-4 px-6 text-slate-700">
+              {{ b.adults }} Ad, {{ b.children }} Ch
+            </td>
+            <td class="py-4 px-6 font-serif font-bold text-emerald-600 text-sm">
+              ${{ "{:,.0f}".format(b.total_price) }}
+            </td>
+            <td class="py-4 px-6 text-slate-500">
+              {{ b.payment_method }}
+            </td>
+            <td class="py-4 px-6">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold 
+                {% if b.status == 'Confirmed' %}bg-emerald-100 text-emerald-800
+                {% elif b.status == 'Pending' %}bg-amber-100 text-amber-800
+                {% elif b.status == 'Completed' %}bg-blue-100 text-blue-800
+                {% else %}bg-slate-100 text-slate-700{% endif %}">
+                {{ b.status }}
+              </span>
+            </td>
+            <td class="py-4 px-6 text-right space-x-1">
+              {% if b.status != 'Confirmed' %}
+              <button onclick="updateBookingStatus('{{ b._id }}', 'Confirmed')" 
+                      class="px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-[10px] transition">
+                Confirm
+              </button>
+              {% endif %}
+              {% if b.status != 'Completed' %}
+              <button onclick="updateBookingStatus('{{ b._id }}', 'Completed')" 
+                      class="px-2 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-[10px] transition">
+                Done
+              </button>
+              {% endif %}
+              {% if b.status != 'Cancelled' %}
+              <button onclick="updateBookingStatus('{{ b._id }}', 'Cancelled')" 
+                      class="px-2 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-[10px] transition">
+                Cancel
+              </button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="9" class="py-16 text-center text-slate-400">
+              <i data-lucide="ticket" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
+              <p class="text-sm font-bold text-slate-700">No Reservations Recorded Yet</p>
+              <p class="text-xs text-slate-400 mt-1">When customers place bookings on the website, their full details and vouchers will show here.</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
