@@ -1,0 +1,95 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Customer Inquiries | WanderLuxe Admin{% endblock %}
+
+{% block admin_content %}
+<div class="space-y-6">
+  
+  <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy">Customer Inquiries & Leads</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">Direct inquiries from the website contact page.</p>
+    </div>
+    <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-bold text-xs text-slate-700">Total: {{ inquiries|length }}</span>
+  </div>
+
+  <!-- INQUIRIES LIST -->
+  <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs text-slate-600">
+        <thead class="bg-slate-50 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-100">
+          <tr>
+            <th class="py-3.5 px-6">Sender</th>
+            <th class="py-3.5 px-6">Destination</th>
+            <th class="py-3.5 px-6">Message</th>
+            <th class="py-3.5 px-6">Date</th>
+            <th class="py-3.5 px-6">Status</th>
+            <th class="py-3.5 px-6 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% if inquiries %}
+          {% for inq in inquiries %}
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-4 px-6">
+              <strong class="text-slate-800 text-sm block">{{ inq.name }}</strong>
+              <a href="mailto:{{ inq.email }}" class="text-slate-400 hover:text-brand-navy block">{{ inq.email }}</a>
+              <a href="https://wa.me/{{ inq.phone | replace('+', '') | replace(' ', '') }}" target="_blank" class="text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                <i data-lucide="message-circle" class="w-3 h-3"></i> {{ inq.phone }}
+              </a>
+            </td>
+            <td class="py-4 px-6 font-semibold text-brand-navy">
+              {{ inq.destination or 'General' }}
+            </td>
+            <td class="py-4 px-6 max-w-md">
+              <p class="text-slate-600 text-xs leading-relaxed italic bg-slate-50 p-3 rounded-xl border border-slate-100">
+                "{{ inq.message }}"
+              </p>
+            </td>
+            <td class="py-4 px-6 text-slate-400 text-[11px]">
+              {{ inq.created_at[:10] if inq.created_at else 'Recent' }}
+            </td>
+            <td class="py-4 px-6">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold 
+                {% if inq.status == 'Resolved' %}bg-emerald-100 text-emerald-800
+                {% elif inq.status == 'Contacted' %}bg-blue-100 text-blue-800
+                {% else %}bg-amber-100 text-amber-800{% endif %}">
+                {{ inq.status }}
+              </span>
+            </td>
+            <td class="py-4 px-6 text-right space-x-1">
+              {% if inq.status != 'Contacted' %}
+              <button onclick="updateInquiryStatus('{{ inq._id }}', 'Contacted')" 
+                      class="px-2 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-[10px] transition" title="Mark as Contacted">
+                Contacted
+              </button>
+              {% endif %}
+              {% if inq.status != 'Resolved' %}
+              <button onclick="updateInquiryStatus('{{ inq._id }}', 'Resolved')" 
+                      class="px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-[10px] transition" title="Mark as Resolved">
+                Resolved
+              </button>
+              {% endif %}
+              <button onclick="deleteInquiry('{{ inq._id }}')" 
+                      class="px-2 py-1 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-[10px] transition" title="Delete Inquiry">
+                <i data-lucide="trash" class="w-3.5 h-3.5 inline"></i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="6" class="py-16 text-center text-slate-400">
+              <i data-lucide="mail-open" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
+              <p class="text-sm font-bold text-slate-700">No Inquiries Received Yet</p>
+              <p class="text-xs text-slate-400 mt-1">Customer inquiries submitted through the Contact Us form will appear here.</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

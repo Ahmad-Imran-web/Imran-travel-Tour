@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings & Reservations | WanderLuxe{% endblock %}
+
+{% block content %}
+<!-- HEADER -->
+<section class="bg-brand-navy text-white py-16 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <span class="text-brand-gold text-xs uppercase font-bold tracking-widest block mb-2">Traveler Portal</span>
+    <h1 class="text-3xl sm:text-4xl font-serif font-bold text-white mb-3">Manage Your Bookings</h1>
+    <p class="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto">
+      Track the live status of your vacation itineraries, download travel vouchers, or view upcoming departures.
+    </p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="py-12 bg-slate-50 min-h-[70vh]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- SEARCH LOOKUP BOX -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 mb-8">
+      <form action="/my-bookings" method="GET" class="flex flex-col sm:flex-row gap-4 items-center">
+        <div class="relative flex-grow w-full">
+          <i data-lucide="search" class="w-4 h-4 text-brand-gold absolute left-3 top-3.5"></i>
+          <input type="text" name="email" value="{{ search_email or '' }}" placeholder="Enter your booking email or reference (e.g. ahmad.raza@example.com)" 
+                 class="w-full pl-9 pr-4 py-3 text-sm bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold">
+        </div>
+        <button type="submit" class="w-full sm:w-auto bg-brand-navy hover:bg-brand-dark text-white text-xs font-bold px-8 py-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+          <span>Find Bookings</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-brand-gold"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- BOOKINGS LIST -->
+    {% if bookings %}
+    <div class="space-y-4">
+      {% for b in bookings %}
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-md transition">
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs font-bold text-brand-navy bg-slate-100 px-3 py-1 rounded-lg">
+              {{ b.booking_ref }}
+            </span>
+            <span class="text-xs font-bold px-3 py-1 rounded-full 
+              {% if b.status == 'Confirmed' %}bg-emerald-100 text-emerald-800
+              {% elif b.status == 'Pending' %}bg-amber-100 text-amber-800
+              {% else %}bg-slate-100 text-slate-700{% endif %}">
+              {{ b.status }}
+            </span>
+          </div>
+
+          <h3 class="text-lg font-serif font-bold text-brand-navy">{{ b.tour_title }}</h3>
+          
+          <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+            <span class="flex items-center gap-1">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-gold"></i> Date: <strong class="text-slate-700">{{ b.travel_date }}</strong>
+            </span>
+            <span class="flex items-center gap-1">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-brand-gold"></i> {{ b.adults }} Adult(s), {{ b.children }} Child(ren)
+            </span>
+            <span class="flex items-center gap-1">
+              <i data-lucide="credit-card" class="w-3.5 h-3.5 text-brand-gold"></i> Total: <strong class="text-emerald-600 font-serif text-sm">${{ "{:,.0f}".format(b.total_price) }}</strong>
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="/booking-confirmation/{{ b.booking_ref }}" class="bg-brand-navy hover:bg-brand-dark text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+            <i data-lucide="printer" class="w-3.5 h-3.5 text-brand-gold"></i>
+            <span>View Voucher</span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8">
+      <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="ticket" class="w-7 h-7"></i>
+      </div>
+      <h3 class="text-lg font-serif font-bold text-brand-navy">No Bookings Found</h3>
+      <p class="text-slate-500 text-xs mt-1 max-w-sm mx-auto">
+        We couldn't find any reservations matching that email or reference. Please check the spelling or explore our newest vacation packages.
+      </p>
+      <a href="/tours" class="inline-block mt-5 bg-brand-navy text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow hover:bg-brand-dark transition">
+        Browse Tour Packages
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

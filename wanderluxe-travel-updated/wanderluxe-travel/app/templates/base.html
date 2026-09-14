@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}WanderLuxe | Luxury Travel Agency & Bespoke Tours{% endblock %}</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B192C',
+              dark: '#1E3E62',
+              gold: '#D4AF37',
+              goldHover: '#B8972E',
+              emerald: '#0E8388',
+              sand: '#F8F6F0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-brand-navy text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-brand-gold"></i> +92 315 6303134</span>
+        <span class="hidden sm:flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-brand-gold"></i> vip@wanderluxe.com</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1.5 text-brand-gold font-medium">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Special Offer: 20% OFF Summer Bookings!
+        </span>
+        <a href="/admin" class="hover:text-white transition flex items-center gap-1">
+          <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-brand-gold"></i> Admin Portal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- LOGO -->
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-navy to-brand-dark flex items-center justify-center text-brand-gold shadow-md group-hover:scale-105 transition">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-2xl font-bold font-serif tracking-tight text-brand-navy block leading-none">Wander<span class="text-brand-gold">Luxe</span></span>
+            <span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-slate-500 block mt-1">Luxury Travel & Tours</span>
+          </div>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
+          <a href="/" class="hover:text-brand-gold transition py-1 {% if active_page == 'home' %}text-brand-navy font-bold border-b-2 border-brand-gold{% endif %}">Home</a>
+          <a href="/tours" class="hover:text-brand-gold transition py-1 {% if active_page == 'tours' %}text-brand-navy font-bold border-b-2 border-brand-gold{% endif %}">Tour Packages</a>
+          <a href="/destinations" class="hover:text-brand-gold transition py-1 {% if active_page == 'destinations' %}text-brand-navy font-bold border-b-2 border-brand-gold{% endif %}">Destinations</a>
+          <a href="/about" class="hover:text-brand-gold transition py-1 {% if active_page == 'about' %}text-brand-navy font-bold border-b-2 border-brand-gold{% endif %}">About Us</a>
+          <a href="/contact" class="hover:text-brand-gold transition py-1 {% if active_page == 'contact' %}text-brand-navy font-bold border-b-2 border-brand-gold{% endif %}">Contact</a>
+        </nav>
+
+        <!-- CTA & ACTIONS -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/my-bookings" class="text-sm font-semibold text-slate-700 hover:text-brand-navy flex items-center gap-1.5 transition">
+            <i data-lucide="ticket" class="w-4 h-4 text-brand-gold"></i> My Bookings
+          </a>
+          <a href="/tours" class="bg-brand-navy hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition flex items-center gap-2">
+            <span>Explore Tours</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-brand-gold"></i>
+          </a>
+        </div>
+
+        <!-- MOBILE HAMBURGER BUTTON -->
+        <div class="md:hidden flex items-center">
+          <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 transition focus:outline-none" aria-label="Toggle menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200 px-6 py-5 shadow-2xl transition-all">
+      <nav class="flex flex-col gap-4 text-base font-medium text-slate-800">
+        <a href="/" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>Home</span> <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+        <a href="/tours" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>Tour Packages</span> <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+        <a href="/destinations" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>Destinations</span> <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+        <a href="/about" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>About Us</span> <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+        <a href="/contact" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>Contact</span> <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+        <a href="/my-bookings" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 hover:text-brand-gold">
+          <span>My Bookings</span> <i data-lucide="ticket" class="w-4 h-4 text-brand-gold"></i>
+        </a>
+        <a href="/admin" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 border-b border-slate-100 text-amber-600 font-semibold">
+          <span>Admin Portal</span> <i data-lucide="lock" class="w-4 h-4"></i>
+        </a>
+      </nav>
+      <div class="mt-5">
+        <a href="/tours" class="w-full text-center bg-brand-navy hover:bg-brand-dark text-white font-semibold py-3 px-4 rounded-xl block shadow-md">
+          Book a Vacation Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN BODY CONTENT -->
+  <main class="flex-grow">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-navy text-slate-300 pt-16 pb-10 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- BRAND INFO -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-gold flex items-center justify-center text-brand-navy font-bold shadow-md">
+              <i data-lucide="compass" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-serif font-bold text-white tracking-tight">Wander<span class="text-brand-gold">Luxe</span></span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+            Curating high-end bespoke holiday experiences, luxury honeymoon retreats, and unforgettable expeditions across 85+ countries worldwide.
+          </p>
+          <div class="flex items-center gap-3 text-brand-gold pt-2">
+            <span class="text-xs bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 flex items-center gap-1.5">
+              <i data-lucide="award" class="w-3.5 h-3.5"></i> IATA Accredited
+            </span>
+            <span class="text-xs bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 100% Financial Protection
+            </span>
+          </div>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div>
+          <h4 class="text-white font-semibold text-base mb-4 tracking-wide">Quick Links</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="/" class="hover:text-brand-gold transition">Home</a></li>
+            <li><a href="/tours" class="hover:text-brand-gold transition">All Tour Packages</a></li>
+            <li><a href="/destinations" class="hover:text-brand-gold transition">Top Destinations</a></li>
+            <li><a href="/about" class="hover:text-brand-gold transition">About WanderLuxe</a></li>
+            <li><a href="/contact" class="hover:text-brand-gold transition">Contact Concierge</a></li>
+            <li><a href="/my-bookings" class="hover:text-brand-gold transition">Track My Booking</a></li>
+          </ul>
+        </div>
+
+        <!-- TOP DESTINATIONS -->
+        <div>
+          <h4 class="text-white font-semibold text-base mb-4 tracking-wide">Top Destinations</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="/tours?q=Switzerland" class="hover:text-brand-gold transition">Switzerland Alps</a></li>
+            <li><a href="/tours?q=Bali" class="hover:text-brand-gold transition">Bali & Nusa Penida</a></li>
+            <li><a href="/tours?q=Dubai" class="hover:text-brand-gold transition">Dubai Ultra-Luxury</a></li>
+            <li><a href="/tours?q=Hunza" class="hover:text-brand-gold transition">Hunza & Skardu Valley</a></li>
+            <li><a href="/tours?q=Maldives" class="hover:text-brand-gold transition">Maldives Water Villas</a></li>
+            <li><a href="/tours?q=Turkey" class="hover:text-brand-gold transition">Cappadocia & Istanbul</a></li>
+          </ul>
+        </div>
+
+        <!-- NEWSLETTER -->
+        <div>
+          <h4 class="text-white font-semibold text-base mb-4 tracking-wide">VIP Travel Club</h4>
+          <p class="text-slate-400 text-xs leading-relaxed mb-3">
+            Subscribe to receive private flight deals, secret luxury villas, and exclusive seasonal promotions.
+          </p>
+          <form onsubmit="submitNewsletter(event)" class="space-y-2">
+            <input type="email" required placeholder="Your email address" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-brand-gold transition">
+            <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-brand-navy font-bold text-xs py-2.5 px-4 rounded-xl transition shadow-md">
+              Join Exclusive Club
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+        <p>© 2026 WanderLuxe Travel & Tours. All Rights Reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Service</a>
+          <a href="#" class="hover:text-slate-400">Booking Conditions</a>
+          <a href="/admin" class="text-brand-gold hover:underline">Admin Login</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL SCRIPTS -->
+  <script src="/static/js/main.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

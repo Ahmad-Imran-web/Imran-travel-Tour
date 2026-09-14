@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+
+{% block title %}WanderLuxe | Luxury Travel Agency, Tours & Holidays{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<section class="relative min-h-[90vh] flex items-center justify-center bg-brand-navy overflow-hidden">
+  <!-- Background Image with Parallax & Gradient Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85" 
+         alt="Luxury Travel Destination" 
+         class="w-full h-full object-cover object-center transform scale-105 transition duration-1000">
+    <div class="absolute inset-0 hero-gradient-overlay"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+    <!-- Luxury Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-gold text-xs sm:text-sm font-semibold mb-6 tracking-wide shadow-lg">
+      <i data-lucide="compass" class="w-4 h-4"></i> World's Leading Bespoke Travel Agency
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto mb-6">
+      Crafting <span class="gold-text">Extraordinary</span> Journeys Across The Globe
+    </h1>
+
+    <p class="text-base sm:text-xl text-slate-200 font-normal max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow">
+      Handcrafted 5-star itineraries, private mountain chalets, and secluded island villas curated for discerning travelers.
+    </p>
+
+    <!-- SEARCH & FILTER BAR -->
+    <div class="max-w-4xl mx-auto bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl sm:rounded-3xl shadow-2xl border border-white/40 text-left">
+      <form action="/tours" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+        <!-- Destination -->
+        <div class="space-y-1">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Destination</label>
+          <div class="relative flex items-center">
+            <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold absolute left-3"></i>
+            <input type="text" name="q" placeholder="Where to? (e.g. Swiss, Bali)" 
+                   class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          </div>
+        </div>
+
+        <!-- Travel Style / Category -->
+        <div class="space-y-1">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Trip Style</label>
+          <div class="relative flex items-center">
+            <i data-lucide="tag" class="w-4 h-4 text-brand-gold absolute left-3"></i>
+            <select name="category" class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <option value="">All Experiences</option>
+              <option value="Luxury">Luxury & Spas</option>
+              <option value="Honeymoon">Romantic Honeymoon</option>
+              <option value="Adventure">Wild Adventure</option>
+              <option value="Cultural">Cultural Heritage</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Duration -->
+        <div class="space-y-1">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Duration</label>
+          <div class="relative flex items-center">
+            <i data-lucide="calendar" class="w-4 h-4 text-brand-gold absolute left-3"></i>
+            <select name="duration" class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <option value="">Any Length</option>
+              <option value="short">4 - 6 Days</option>
+              <option value="medium">7 - 9 Days</option>
+              <option value="long">10+ Days</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="pt-2 sm:pt-4">
+          <button type="submit" class="w-full bg-brand-navy hover:bg-brand-dark text-white font-bold text-sm py-3 px-6 rounded-xl transition shadow-lg flex items-center justify-center gap-2 group">
+            <span>Explore Tours</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUE PROPOSITION BAR -->
+<section class="bg-white border-b border-slate-200 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-brand-gold flex items-center justify-center flex-shrink-0">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-slate-900">100% Verified Stays</h4>
+          <p class="text-xs text-slate-500 mt-1">Personally inspected 5-star villas, boutique lodges and chalets.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="sparkles" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-slate-900">Tailor-Made Luxury</h4>
+          <p class="text-xs text-slate-500 mt-1">Bespoke daily itineraries tailored to your unique preferences.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="headphones" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-slate-900">24/7 Global Concierge</h4>
+          <p class="text-xs text-slate-500 mt-1">Dedicated private travel manager on call throughout your journey.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="badge-dollar-sign" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-slate-900">Best Price Guarantee</h4>
+          <p class="text-xs text-slate-500 mt-1">Direct hotel partnerships with exclusive VIP rates and perks.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED TOURS SECTION -->
+<section class="py-20 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <span class="text-brand-gold text-xs uppercase font-bold tracking-widest block mb-2">Signature Journeys</span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-navy">Featured Vacation Packages</h2>
+      </div>
+      <a href="/tours" class="inline-flex items-center gap-2 text-sm font-bold text-brand-navy hover:text-brand-gold mt-4 md:mt-0 group transition">
+        <span>View All {{ total_tours }} Packages</span>
+        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
+      </a>
+    </div>
+
+    <!-- Tours Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for tour in featured_tours %}
+      <div class="tour-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl flex flex-col border border-slate-100">
+        <!-- Tour Image -->
+        <div class="relative h-64 overflow-hidden">
+          <img src="{{ tour.image_url }}" alt="{{ tour.title }}" class="tour-card-img w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          
+          <!-- Category Badge -->
+          <div class="absolute top-4 left-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-navy/90 backdrop-blur-md text-white border border-white/20">
+              {{ tour.category }}
+            </span>
+          </div>
+
+          <!-- Featured Ribbon -->
+          {% if tour.featured %}
+          <div class="absolute top-4 right-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-400 text-slate-900 flex items-center gap-1 shadow-md">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Best Seller
+            </span>
+          </div>
+          {% endif %}
+
+          <!-- Location on image -->
+          <div class="absolute bottom-4 left-4 flex items-center gap-1.5 text-white text-sm font-medium">
+            <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold"></i>
+            <span>{{ tour.destination }}, {{ tour.country }}</span>
+          </div>
+        </div>
+
+        <!-- Tour Body -->
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <!-- Duration & Rating -->
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-3">
+              <span class="flex items-center gap-1 font-semibold text-slate-700">
+                <i data-lucide="clock" class="w-4 h-4 text-brand-gold"></i> {{ tour.duration_days }} Days / {{ tour.duration_nights }} Nights
+              </span>
+              <span class="flex items-center gap-1 font-bold text-amber-500">
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i> {{ tour.rating }} ({{ tour.reviews_count }})
+              </span>
+            </div>
+
+            <h3 class="text-xl font-bold font-serif text-brand-navy line-clamp-1 mb-2">
+              <a href="/tour-details?id={{ tour._id }}" class="hover:text-brand-gold transition">{{ tour.title }}</a>
+            </h3>
+
+            <p class="text-slate-500 text-xs line-clamp-2 leading-relaxed mb-4">
+              {{ tour.description }}
+            </p>
+
+            <!-- Highlights tags -->
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              {% for h in tour.highlights[:2] %}
+              <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-[11px] font-medium flex items-center gap-1">
+                <i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> {{ h }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Price & Action Footer -->
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-slate-400 text-[11px] block">Starting from</span>
+              <div class="flex items-baseline gap-2">
+                {% if tour.discount_price %}
+                <span class="text-2xl font-bold text-brand-navy">${{ "{:,.0f}".format(tour.discount_price) }}</span>
+                <span class="text-xs text-slate-400 line-through">${{ "{:,.0f}".format(tour.price) }}</span>
+                {% else %}
+                <span class="text-2xl font-bold text-brand-navy">${{ "{:,.0f}".format(tour.price) }}</span>
+                {% endif %}
+                <span class="text-slate-400 text-[10px]">/ person</span>
+              </div>
+            </div>
+
+            <a href="/tour-details?id={{ tour._id }}" class="bg-brand-navy hover:bg-brand-dark text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-1.5">
+              <span>View Tour</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-brand-gold"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- DESTINATIONS SHOWCASE -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-brand-gold text-xs uppercase font-bold tracking-widest block mb-2">Unrivaled Escapes</span>
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-navy">Explore Premier Destinations</h2>
+      <p class="text-slate-500 text-sm mt-3 leading-relaxed">
+        From snow-draped alpine summits to pristine tropical atolls, uncover the planet's most coveted retreats.
+      </p>
+    </div>
+
+    <!-- Grid of Destinations -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Switzerland -->
+      <a href="/tours?q=Switzerland" class="group relative h-80 rounded-3xl overflow-hidden shadow-lg block">
+        <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80" 
+             alt="Switzerland" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 text-white">
+          <span class="text-xs uppercase font-semibold text-brand-gold tracking-wider">Europe</span>
+          <h3 class="text-2xl font-serif font-bold text-white group-hover:text-brand-gold transition">Switzerland</h3>
+          <p class="text-xs text-slate-300 mt-1">Glacier trains & 5-star mountain spas</p>
+        </div>
+      </a>
+
+      <!-- Bali -->
+      <a href="/tours?q=Bali" class="group relative h-80 rounded-3xl overflow-hidden shadow-lg block">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" 
+             alt="Bali" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 text-white">
+          <span class="text-xs uppercase font-semibold text-brand-gold tracking-wider">Southeast Asia</span>
+          <h3 class="text-2xl font-serif font-bold text-white group-hover:text-brand-gold transition">Bali & Penida</h3>
+          <p class="text-xs text-slate-300 mt-1">Rainforest villas & secret lagoons</p>
+        </div>
+      </a>
+
+      <!-- Dubai -->
+      <a href="/tours?q=Dubai" class="group relative h-80 rounded-3xl overflow-hidden shadow-lg block">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" 
+             alt="Dubai" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 text-white">
+          <span class="text-xs uppercase font-semibold text-brand-gold tracking-wider">Middle East</span>
+          <h3 class="text-2xl font-serif font-bold text-white group-hover:text-brand-gold transition">Dubai</h3>
+          <p class="text-xs text-slate-300 mt-1">Ultra-luxury towers & desert safari</p>
+        </div>
+      </a>
+
+      <!-- Hunza & Skardu -->
+      <a href="/tours?q=Hunza" class="group relative h-80 rounded-3xl overflow-hidden shadow-lg block">
+        <img src="https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80" 
+             alt="Hunza Valley" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 text-white">
+          <span class="text-xs uppercase font-semibold text-brand-gold tracking-wider">South Asia</span>
+          <h3 class="text-2xl font-serif font-bold text-white group-hover:text-brand-gold transition">Hunza & Skardu</h3>
+          <p class="text-xs text-slate-300 mt-1">Karakoram peaks & Attabad Lake</p>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="/destinations" class="inline-flex items-center gap-2 font-bold text-sm text-brand-navy hover:text-brand-gold transition">
+        <span>Explore All Destinations</span>
+        <i data-lucide="arrow-right" class="w-4 h-4 text-brand-gold"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIAL PROMOTION BANNER -->
+<section class="py-16 bg-gradient-to-r from-brand-navy via-brand-dark to-slate-900 text-white relative overflow-hidden">
+  <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div class="space-y-3 max-w-2xl text-center lg:text-left">
+        <span class="inline-block px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold border border-brand-gold/30 text-xs font-bold uppercase tracking-wider">
+          Limited-Time Special Offer
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold leading-tight">
+          Summer 2026 Privilege Pass: Up to <span class="text-brand-gold">$500 Off</span> Per Couple
+        </h2>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Book any 7+ day international itinerary before end of this month and enjoy complimentary private airport limousine transfers and 5-star spa credit.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/tours" class="bg-brand-gold hover:bg-brand-goldHover text-brand-navy font-bold text-sm px-8 py-3.5 rounded-full transition shadow-xl text-center">
+          Claim VIP Voucher
+        </a>
+        <a href="/contact" class="border border-white/30 hover:bg-white/10 text-white font-bold text-sm px-6 py-3.5 rounded-full transition text-center">
+          Speak With Concierge
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LUXURY GUARANTEES -->
+<section class="py-20 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <span class="text-brand-gold text-xs uppercase font-bold tracking-widest block mb-2">The WanderLuxe Promise</span>
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-navy">Our Luxury Travel Standards</h2>
+      <p class="text-slate-500 text-sm mt-3">Uncompromising quality, safety, and exclusivity across every journey.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Guarantee 1 -->
+      <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition border border-slate-100 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-brand-gold flex items-center justify-center mb-6">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-serif font-bold text-brand-navy mb-2">100% Financial Protection</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            All guest deposits and package payments are fully bonded with comprehensive travel protection and zero hidden costs.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-slate-100 mt-6 flex items-center gap-2 text-xs font-semibold text-brand-navy">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Bonded & IATA Accredited
+        </div>
+      </div>
+
+      <!-- Guarantee 2 -->
+      <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition border border-slate-100 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">
+            <i data-lucide="hotel" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-serif font-bold text-brand-navy mb-2">Inspected 5-Star Accommodations</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Every chalet, overwater villa, and boutique lodge is personally audited by our concierge team to guarantee elite luxury.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-slate-100 mt-6 flex items-center gap-2 text-xs font-semibold text-brand-navy">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Strict Quality Assurance
+        </div>
+      </div>
+
+      <!-- Guarantee 3 -->
+      <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition border border-slate-100 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-serif font-bold text-brand-navy mb-2">Dedicated Travel Concierge</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            You are assigned a dedicated private travel manager on call 24/7 before, during, and after your expedition.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-slate-100 mt-6 flex items-center gap-2 text-xs font-semibold text-brand-navy">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> 24/7 VIP Assistance
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

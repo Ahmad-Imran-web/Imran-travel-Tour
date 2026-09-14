@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmation | Reference: {{ booking.booking_ref }} | WanderLuxe{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-slate-50 min-h-[80vh]">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Top Alert Notification (No Print) -->
+    <div class="no-print bg-emerald-50 border border-emerald-200 rounded-3xl p-6 sm:p-8 text-center mb-8 shadow-sm">
+      <div class="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto mb-4 shadow-lg">
+        <i data-lucide="check" class="w-8 h-8"></i>
+      </div>
+      <span class="text-xs uppercase font-bold text-emerald-700 tracking-widest block mb-1">Reservation Successfully Confirmed</span>
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-2">Thank You, {{ booking.customer_name }}!</h1>
+      <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto">
+        Your booking has been recorded in our system with Reference ID <strong class="text-brand-navy font-mono">{{ booking.booking_ref }}</strong>. A confirmation copy has been dispatched to <strong class="text-slate-800">{{ booking.customer_email }}</strong>.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+        <button onclick="window.print()" class="bg-brand-navy hover:bg-brand-dark text-white text-xs font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+          <i data-lucide="printer" class="w-4 h-4 text-brand-gold"></i> Print Official Voucher
+        </button>
+        <a href="/my-bookings?email={{ booking.customer_email }}" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-xs font-bold px-6 py-3 rounded-xl shadow-sm transition flex items-center gap-2">
+          <i data-lucide="ticket" class="w-4 h-4 text-brand-gold"></i> View in My Bookings
+        </a>
+        <a href="/tours" class="text-xs font-bold text-brand-navy hover:underline flex items-center gap-1">
+          <span>Browse More Trips</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- OFFICIAL PRINTABLE VOUCHER -->
+    <div id="printable-voucher" class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-200">
+      
+      <!-- Voucher Header -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b border-slate-200 gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand-navy text-brand-gold flex items-center justify-center font-bold shadow-md">
+            <i data-lucide="compass" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-serif font-bold text-brand-navy">Wander<span class="text-brand-gold">Luxe</span></h2>
+            <span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-slate-400">Official Travel Voucher</span>
+          </div>
+        </div>
+
+        <div class="text-left sm:text-right">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Voucher Reference</span>
+          <span class="text-xl font-mono font-bold text-brand-navy">{{ booking.booking_ref }}</span>
+          <div class="mt-1">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 inline-block">
+              Status: {{ booking.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour & Guest Information -->
+      <div class="py-8 border-b border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div>
+          <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">Package Name</span>
+          <h3 class="text-lg font-serif font-bold text-brand-navy mb-2">{{ booking.tour_title }}</h3>
+          
+          <div class="space-y-1 text-xs text-slate-600">
+            <div><span class="text-slate-400">Departure Date:</span> <strong class="text-slate-800">{{ booking.travel_date }}</strong></div>
+            <div><span class="text-slate-400">Travelers:</span> <strong class="text-slate-800">{{ booking.adults }} Adult(s), {{ booking.children }} Child(ren)</strong></div>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">Lead Passenger Info</span>
+          <h4 class="text-base font-bold text-slate-800">{{ booking.customer_name }}</h4>
+          <div class="space-y-1 text-xs text-slate-600 mt-1">
+            <div><span class="text-slate-400">Email:</span> {{ booking.customer_email }}</div>
+            <div><span class="text-slate-400">Phone:</span> {{ booking.customer_phone }}</div>
+            <div><span class="text-slate-400">Payment:</span> {{ booking.payment_method }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special Requests if any -->
+      {% if booking.special_requests %}
+      <div class="py-6 border-b border-slate-200">
+        <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">Special Preferences / Requests</span>
+        <p class="text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100 italic">
+          "{{ booking.special_requests }}"
+        </p>
+      </div>
+      {% endif %}
+
+      <!-- Financial Breakdown -->
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+        <div class="text-xs text-slate-500 max-w-sm space-y-1">
+          <p><strong>Note:</strong> Please present this voucher along with your passports during hotel check-in and private airport pickup.</p>
+          <p>24/7 VIP Concierge Hotline: <strong>+92 300 1234567</strong></p>
+        </div>
+
+        <div class="text-left sm:text-right">
+          <span class="text-xs text-slate-400 block">Total Amount</span>
+          <span class="text-3xl font-serif font-bold text-emerald-600">${{ "{:,.0f}".format(booking.total_price) }}</span>
+          <span class="text-[11px] text-slate-400 block mt-0.5">Includes taxes & 5-star service fees</span>
+        </div>
+      </div>
+
+      <!-- Agency Footer Stamp -->
+      <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center text-[10px] text-slate-400">
+        <span>WanderLuxe Bespoke Travel & Tours</span>
+        <span>Issued: {{ booking.created_at[:10] if booking.created_at else 'Today' }}</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}
